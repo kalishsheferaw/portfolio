@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Olist customer retention and repeat purchase analysis | Kalish Shiferaw</title>
+<meta name="description" content="A Power BI report on the Olist Brazilian e-commerce data: revenue, orders, customers and repeat purchase rate by quarter. Case study by Kalish Shiferaw.">
+<meta name="author" content="Kalish Shiferaw">
+<meta name="theme-color" content="#e8f1f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1e26" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://kalishshiferaw.github.io/portfolio/projects/olist-retention-analysis.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Olist customer retention and repeat purchase analysis | Kalish Shiferaw">
+<meta property="og:description" content="A Power BI report on the Olist Brazilian e-commerce data: revenue, orders, customers and repeat purchase rate by quarter. Case study by Kalish Shiferaw.">
+<meta property="og:url" content="https://kalishshiferaw.github.io/portfolio/projects/olist-retention-analysis.html">
+<meta property="og:image" content="https://kalishshiferaw.github.io/portfolio/assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/source-serif-4-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body style="--pc:var(--blue)">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Kalish Shiferaw</a>
+    <nav class="nav" aria-label="Primary">
+      <a href="../index.html#projects">Projects</a>
+      <a href="../index.html#skills">Skills</a>
+      <a href="../index.html#certificates">Certificates</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+    <div class="nav-tools">
+      <button class="icon-btn theme-btn" type="button" aria-label="Switch between light and dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap case-head">
+    <p class="crumb"><a href="../index.html#projects">Projects</a> / Olist retention analysis</p>
+    <h1>Olist customer retention and repeat purchase analysis</h1>
+    <p class="lede">A Power BI report that shows how many Olist customers order again, and how revenue and orders move quarter by quarter.</p>
+    <p class="tags">Power BI <span class="sep" aria-hidden="true">|</span> DAX <span class="sep" aria-hidden="true">|</span> Data Modeling</p>
+  </div>
+
+  <div class="wrap case-media">
+    <div class="report" data-tabs style="--pc:var(--blue)">
+      <div class="report-screen">
+        <div class="report-panel" role="tabpanel" id="o-p1" aria-labelledby="o-t1">
+          <img class="zoomable" data-zoom data-caption="Olist retention dashboard, Power BI, full page" src="../assets/img/olist-dashboard.webp" width="1551" height="866" decoding="async"
+               alt="Olist Power BI dashboard with KPI column on the left and five charts: quarterly revenue with quarter-over-quarter lines, payment behavior, review score versus order value, product category scatter, and repeat purchase rate by Brazilian state.">
+        </div>
+        <div class="report-panel" role="tabpanel" id="o-p2" aria-labelledby="o-t2" hidden>
+          <video controls muted playsinline preload="metadata" poster="../assets/video/olist-dashboard-poster.webp" width="1280" height="720"
+                 aria-label="Screen recording of the Olist Power BI dashboard being filtered by quarter, with tooltips on the charts and the map.">
+            <source src="../assets/video/olist-dashboard-demo.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Olist report views">
+        <button role="tab" id="o-t1" aria-controls="o-p1" aria-selected="true">Full report</button>
+        <button role="tab" id="o-t2" aria-controls="o-p2" aria-selected="false" tabindex="-1">Live demo</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap case-layout">
+    <nav class="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <a href="#question">The question</a>
+      <a href="#goals">What it answers</a>
+      <a href="#data">Data and tools</a>
+      <a href="#views">What is on the page</a>
+      <a href="#validation">Checking the numbers</a>
+      <a href="#challenge">Challenge and solution</a>
+      <a href="#findings">What it shows</a>
+      <a href="#impact">Potential benefits</a>
+      <a href="#links">Links</a>
+    </nav>
+    <div class="case-body">
+      <section id="question">
+        <h2>The question</h2>
+        <p>A marketplace grows by adding customers, but it earns more when customers come back. This report asks how many Olist customers place another order, how that changes from quarter to quarter, and which payment types, review scores, product categories and states sit behind the numbers.</p>
+      </section>
+
+      <section id="goals">
+        <h2>What the report answers</h2>
+        <ul class="bullets">
+          <li>How revenue, orders and customers change from one quarter to the next.</li>
+          <li>What the repeat purchase rate is, and whether it is moving.</li>
+          <li>How payment type, review score, product category and state relate to orders and revenue.</li>
+        </ul>
+      </section>
+
+      <section id="data">
+        <h2>Data and tools</h2>
+        <p>The report uses the Olist Brazilian e-commerce data for orders from Q1 2017 to Q3 2018. Across that period it covers about 96K customers, 99K orders and 16M in revenue.</p>
+        <p>It is built in Power BI on a connected data model, with DAX measures for repeat purchases, retention, revenue and quarter-over-quarter trends.</p>
+        <dl class="figures">
+          <div><dt>Customers</dt><dd data-count>96K</dd></div>
+          <div><dt>Orders</dt><dd data-count>99K</dd></div>
+          <div><dt>Revenue</dt><dd data-count>16M</dd></div>
+          <div><dt>Repeat purchase rate</dt><dd data-count>3%</dd></div>
+        </dl>
+      </section>
+
+      <section id="views">
+        <h2>What is on the page</h2>
+        <ul class="bullets">
+          <li><b>A quarter slicer</b> from Q1 2017 to Q3 2018 filters every visual, and clicking a bar cross-filters the rest of the page.</li>
+          <li><b>A KPI column</b> shows total customers, revenue, orders, repeat purchase rate, average orders per customer and average order value, each with a change indicator.</li>
+          <li><b>Quarterly revenue and QoQ performance</b> uses columns for revenue and lines for the quarter-over-quarter change in repeat purchase rate, customers and orders.</li>
+          <li><b>Payment behavior</b> compares orders by payment type: credit card, boleto, voucher, debit card and not defined.</li>
+          <li><b>Review score versus order value</b> shows average order value at each review score.</li>
+          <li><b>Product category</b> plots orders against revenue for each category.</li>
+          <li><b>Repeat purchase rate by state</b> shades a map of Brazil.</li>
+        </ul>
+      </section>
+
+      <section id="validation">
+        <h2>Checking the numbers</h2>
+        <p>A dedicated validation page, Validation Table, is used to check the results. It collects validation measures such as Total Orders QoQ % Validation and Repeat Purchase Rate QoQ % Validation, which also appear in tooltips on the dashboard, so the figures on the visuals can be checked as you explore. Everything shown is historical actuals, not predicted values.</p>
+      </section>
+
+      <section id="challenge">
+        <h2>Challenge and solution</h2>
+        <p><b>Challenge.</b> Turning a complex e-commerce dataset into reliable historical customer-retention insights while avoiding the use of predicted values as actual results.</p>
+        <p><b>Solution.</b> Built a connected data model and DAX measures for repeat purchases, retention, revenue, and QoQ trends, then validated the results through a dedicated validation page.</p>
+      </section>
+
+      <section id="findings">
+        <h2>What the report shows</h2>
+        <ul class="bullets">
+          <li>Quarterly revenue rises from Q1 2017 to a peak in Q2 2018.</li>
+          <li>Credit card carries most orders, followed by boleto.</li>
+          <li>The repeat purchase rate is low, about 3% for the full period, so retention is the open question.</li>
+          <li>Health and beauty, watches and gifts, and bed and bath are among the highest-revenue categories.</li>
+        </ul>
+      </section>
+
+      <section id="impact">
+        <h2>Potential benefits</h2>
+        <p class="note">These are potential benefits of the design. They are not measured results.</p>
+        <ul class="bullets">
+          <li>Retention sits next to revenue and orders, so it is read as a KPI and not as an afterthought.</li>
+          <li>The quarter slicer and cross-filtering let a reader test a question without asking for a new report.</li>
+          <li>Validation measures give a reviewer a way to trust the numbers.</li>
+        </ul>
+      </section>
+
+      <section id="links">
+        <h2>Links</h2>
+        <div class="link-row">
+          <a data-cfg="olistLive" href="#" rel="noopener" target="_blank" hidden>Open the live dashboard</a>
+          <a data-cfg="olistRepo" href="#" rel="noopener" target="_blank" hidden>Report file and README on GitHub</a>
+          <a href="https://www.linkedin.com/in/kalishshiferawdataanalist/" rel="me noopener" target="_blank">Discuss this project on LinkedIn</a>
+        </div>
+      </section>
+
+      <nav class="case-nav" aria-label="More projects">
+        <a href="../index.html#projects">All projects</a>
+        <a href="mortgage-loan-analytics.html">Next: Mortgage loan analytics</a>
+      </nav>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; 2026 Kalish Shiferaw</p>
+    <p><a href="https://www.linkedin.com/in/kalishshiferawdataanalist/" rel="me noopener" target="_blank">LinkedIn</a></p>
+  </div>
+</footer>
+
+<dialog class="lightbox" id="lightbox" aria-label="Enlarged image">
+  <figure><img alt="" src=""><figcaption></figcaption></figure>
+  <button type="button">Close</button>
+</dialog>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/main.js" defer></script>
+</body>
+</html>
